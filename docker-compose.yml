@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=9A5gCByZ+tRf4ZmtasE0uhISfYmxCqMiH9WxxI61MmM=
+    container_name: demo-app-container
