@@ -1,9 +1,35 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     environment:
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=9A5gCByZ+tRf4ZmtasE0uhISfYmxCqMiH9WxxI61MmM=
+      - NODE_ENV=development
     container_name: demo-app-container
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /app/app
+        - action: sync
+          path: ./components
+          target: /app/components
+        - action: sync
+          path: ./lib
+          target: /app/lib
+        - action: sync
+          path: ./types
+          target: /app/types
+        - action: sync
+          path: ./public
+          target: /app/public
+        - action: rebuild
+          path: package.json
